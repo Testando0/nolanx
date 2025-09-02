@@ -303,17 +303,8 @@ await client.sendMessage(jid, {text: msg});
 });
 
 global.safeSendMessage = async (jid, msg, options = {}) => {
-// Timeout máximo (30 segundos)
-const TIMEOUT_MS = 30000;
 try {
-const envio = client.sendMessage(jid, msg, options);
-// Corrida entre o envio e o timeout
-const resultado = await Promise.race([envio,
-new Promise((_, reject) => 
-setTimeout(() => reject(new Error("Tempo limite excedido (15min)")), TIMEOUT_MS)
-)
-]);
-return resultado;
+await client.sendMessage(jid, msg, options);
 } catch (err) {
 const jidDono = setting.numerodono.replace(/[^\d]/g, '') + '@s.whatsapp.net';
 const tipo = Object.keys(msg)[0] || 'mensagem';
