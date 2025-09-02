@@ -1,0 +1,100 @@
+{
+  "ultimo": {
+    "seeds": [
+      {
+        "name": "Pumpkin",
+        "quantity": 2,
+        "image": null
+      },
+      {
+        "name": "Strawberry",
+        "quantity": 6,
+        "image": null
+      },
+      {
+        "name": "Broccoli",
+        "quantity": 1,
+        "image": null
+      },
+      {
+        "name": "Carrot",
+        "quantity": 19,
+        "image": null
+      },
+      {
+        "name": "Tomato",
+        "quantity": 1,
+        "image": null
+      },
+      {
+        "name": "Blueberry",
+        "quantity": 1,
+        "image": null
+      }
+    ],
+    "eggs": [
+      {
+        "name": "Uncommon Egg",
+        "quantity": 1,
+        "image": null
+      },
+      {
+        "name": "Common Egg",
+        "quantity": 1,
+        "image": null
+      },
+      {
+        "name": "Common Egg",
+        "quantity": 1,
+        "image": null
+      }
+    ],
+    "gears": [
+      {
+        "name": "Advanced Sprinkler",
+        "quantity": 2,
+        "image": null
+      },
+      {
+        "name": "Cleaning Spray",
+        "quantity": 1,
+        "image": null
+      },
+      {
+        "name": "Trowel",
+        "quantity": 2,
+        "image": null
+      },
+      {
+        "name": "Harvest Tool",
+        "quantity": 3,
+        "image": null
+      },
+      {
+        "name": "Trading Ticket",
+        "quantity": 2,
+        "image": null
+      },
+      {
+        "name": "Recall Wrench",
+        "quantity": 2,
+        "image": null
+      },
+      {
+        "name": "Watering Can",
+        "quantity": 3,
+        "image": null
+      },
+      {
+        "name": "Favorite Tool",
+        "quantity": 2,
+        "image": null
+      },
+      {
+        "name": "Basic Sprinkler",
+        "quantity": 1,
+        "image": null
+      }
+    ]
+  }
+}
