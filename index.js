@@ -2365,27 +2365,6 @@ setInterval(async () => {
   }
 }, 60 * 1000);
 
-// === Função para limpar cache
-function limparCacheAuto() {
-try {
-const path = "./banco de dados/nolan-code";
-const files = fs.readdirSync(path);
-let deletados = 0;
-
-for (const file of files) {
-if (file !== "creds.json") {
-fs.unlinkSync(`${path}/${file}`);
-deletados++;
-}
-}
-} catch (e) {
-console.log("❌ Erro ao limpar cache automático:", e.message);
-}
-}
-
-// executa a cada 20 minutos
-setInterval(limparCacheAuto, 20 * 60 * 1000);
-
 if (isX9VisuUnica) {
 const msgVO = info.message?.viewOnceMessageV2?.message || info.message?.viewOnceMessage?.message;
 
@@ -2483,8 +2462,6 @@ deletados++;
 }
 await reagir(from, "✅️");
 await enviar(`🗑️ CACHE DA SESSÃO LIMPO!`);
-setTimeout(() => {
-}, 2000);
 } catch (e) {
 enviar("❌ Erro ao limpar cache: " + e.message);
 await reagir(from, "❌");
