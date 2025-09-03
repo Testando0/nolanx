@@ -63,8 +63,8 @@ cd nolan && npm start
 ```
 ## 📳 Vai pedir o número
 
-✔️ Você digitar o **número** e dar enter  
 ✔️ Obs: o WhatsApp do **número** é obrigatório ser o normal e não businnes. para que os botões apareçam corretamente.  
+✔️ Você digita o **número** e dar enter  
 ✔️ Bota o **código** em: **WhatsApp => 3 Pontinhos => Dispositivos Conectados => Conectar dispositivo.**
 
 ---
