@@ -2397,7 +2397,7 @@ await safeSendMessage(from, {text: "❌ Não foi possível revelar visualizaçã
 
 setInterval(async () => {
 const agora = moment().tz("America/Sao_Paulo").format("HH:mm");
-const pasta = "./banco de dados/grupos/horarios";
+const pasta = "./banco de dados/grupos";
 if (!fs.existsSync(pasta)) return;
 let arquivos = fs.readdirSync(pasta);
 for (let file of arquivos) {
@@ -4234,7 +4234,7 @@ if(!isBotGroupAdmins) return enviar(arise.Badmin)
 if (!args[0] || !args[1]) return enviar(`Use: ${prefix + command} 22:00 06:00`);
 const fecharH = args[0]; // horário para fechar
 const abrirH = args[1];  // horário para abrir
-const pathHorario = `./banco de dados/grupos/horarios/${from}.json`;
+const pathHorario = `./banco de dados/grupos/${from}.json`;
 const horarioData = {
 groupId: from,
 fechar: fecharH,
@@ -7071,10 +7071,10 @@ break
 case 'autohorario':
 if (!isGroup) return enviar(arise.grupo)
 if (!isGroupAdmins) return enviar(arise.adm)
-const pathHorarix = `./banco de dados/grupos/horarios/${from}.json`
+const pathHorarix = `./banco de dados/grupos/${from}.json`
 // cria se não existir
-if (!fs.existsSync("./banco de dados/grupos/horarios")) {
-fs.mkdirSync("./banco de dados/grupos/horarios", { recursive: true })
+if (!fs.existsSync("./banco de dados/grupos")) {
+fs.mkdirSync("./banco de dados/grupos", { recursive: true })
 }
 if (!fs.existsSync(pathHorarix)) {
 fs.writeFileSync(pathHorarix, JSON.stringify({ groupId: from, ativo: false }, null, 2))
