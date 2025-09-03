@@ -2397,30 +2397,31 @@ await safeSendMessage(from, {text: "❌ Não foi possível revelar visualizaçã
 
 setInterval(async () => {
 const agora = moment().tz("America/Sao_Paulo").format("HH:mm");
-const pasta = "./banco de dados/grupos";
+const pasta = "./banco de dados/grupos/games";
 if (!fs.existsSync(pasta)) return;
 let arquivos = fs.readdirSync(pasta);
 for (let file of arquivos) {
 let path = `${pasta}/${file}`;
-let data = JSON.parse(fs.readFileSync(path));
-if (!data.ativo) continue;
-// evita rodar 2x no mesmo minuto
-if (data.ultimo === agora) continue;
-data.ultimo = agora; 
-fs.writeFileSync(path, JSON.stringify(data, null, 2));
+// só continua se for arquivo normal
+if (fs.lstatSync(path).isDirectory()) continue;
 try {
+let data = JSON.parse(fs.readFileSync(path, "utf8"));
+if (!data.ativo) continue;
+if (data.ultimo === agora) continue; // evita rodar 2x no mesmo minuto
+data.ultimo = agora;
+fs.writeFileSync(path, JSON.stringify(data, null, 2));
 if (agora === data.fechar) {
 await client.groupSettingUpdate(data.groupId, "announcement");
 await safeSendMessage(data.groupId, {text: `🔐 𝗚𝗥𝗨𝗣𝗢 𝗙𝗘𝗖𝗛𝗔𝗗𝗢: *${agora}* ⏰`});
-safeSendMessage(data.groupId, {sticker: {url: `https://qu.ax/DknBw.webp`}})
+safeSendMessage(data.groupId, {sticker: {url: `https://qu.ax/DknBw.webp`}});
 }
 if (agora === data.abrir) {
 await client.groupSettingUpdate(data.groupId, "not_announcement");
 await safeSendMessage(data.groupId, {text: `✅ 𝗚𝗥𝗨𝗣𝗢 𝗔𝗕𝗘𝗥𝗧𝗢: *${agora}* ⏰`});
-safeSendMessage(data.groupId, {sticker: {url: `https://qu.ax/ClVdV.webp`}})
+await safeSendMessage(data.groupId, {sticker: {url: `https://qu.ax/ClVdV.webp`}});
 }
 } catch (e) {
-console.log("Erro ao abrir/fechar grupo:", e);
+console.log(`Erro no arquivo ${file}:`, e.message);
 }
 }
 }, 15 * 1000);
@@ -4234,7 +4235,7 @@ if(!isBotGroupAdmins) return enviar(arise.Badmin)
 if (!args[0] || !args[1]) return enviar(`Use: ${prefix + command} 22:00 06:00`);
 const fecharH = args[0]; // horário para fechar
 const abrirH = args[1];  // horário para abrir
-const pathHorario = `./banco de dados/grupos/${from}.json`;
+const pathHorario = `./banco de dados/grupos/games/${from}.json`;
 const horarioData = {
 groupId: from,
 fechar: fecharH,
@@ -7071,10 +7072,10 @@ break
 case 'autohorario':
 if (!isGroup) return enviar(arise.grupo)
 if (!isGroupAdmins) return enviar(arise.adm)
-const pathHorarix = `./banco de dados/grupos/${from}.json`
+const pathHorarix = `./banco de dados/grupos/games/${from}.json`
 // cria se não existir
 if (!fs.existsSync("./banco de dados/grupos")) {
-fs.mkdirSync("./banco de dados/grupos", { recursive: true })
+fs.mkdirSync("./banco de dados/grupos/games", { recursive: true })
 }
 if (!fs.existsSync(pathHorarix)) {
 fs.writeFileSync(pathHorarix, JSON.stringify({ groupId: from, ativo: false }, null, 2))

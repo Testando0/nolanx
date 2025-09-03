@@ -66,11 +66,11 @@ const PhoneNumber = require('awesome-phonenumber')
 
 if (!client.authState.creds.registered) {
 try {
-let number = await question(colors.green("💻 Vamos conectar seu WhatsApp ao bot!\n-\n") + colors.cyan("⚠️  Digite seu número com DDD (ex: 5511999999): "));
+let number = await question(colors.green(" 💻 Vamos conectar seu WhatsApp ao bot!\n-\n") + colors.cyan(" ⚠️ Digite seu número com DDD (ex: 5511999999): "));
 number = number.replace(/[^0-9]/g, "");
 let code = await client.requestPairingCode(number);
 code = code?.match(/.{1,4}/g)?.join("-") || code;
-console.log(`${colors.cyan("💬 Seu código para conectar: ")}` + colors.white(code));
+console.log(`${colors.cyan(" 💬 Seu código para conectar: ")}` + colors.white(code));
 rl.close();
 } catch(error) {
 console.error('Falha ao solicitar o código, talvez a conexão tenha atualizado. entre em contato com o (criador) insta: euzenom\n', error)
@@ -265,42 +265,6 @@ clearTimeout(timeout);
 });
 
 global.fetchJson = fetchJson;
-  
-function deveReportarErro(err) {
-const msg = err?.message || '';
-const ignorar = [
-'Request failed with status code', 'settle', 'fetch', 'timeout', 'socket', 'timed out', 'network', 'ECONNRESET', 'ENOTFOUND', 'EAI_AGAIN', 'ETIMEDOUT',
- 'Too Many Requests', 'rate limit', 'Baileys', 'stream', 'connection closed' // adicionado pra evitar flood
-  ];
-return ignorar.every(padrao => !msg.includes(padrao));
-}
-
-process.on('uncaughtException', async (err) => {
-if (!deveReportarErro(err)) {
-console.error("Erro ignorado:", err.message);
-return;
-}
-const linha = err.stack?.split('\n')[1]?.trim() || 'Linha não identificada';
-const msg = `⚠️ *ERRO OU BUG NO:* ${NomeDoBot}\n\n🕑 *Horario:* ${hora}\n📰 *Linha:* ${linha}\n⚙️ *Erro:* ${err.message}`;
-try {
-const jid = setting.numerodono.replace(/[^\d]/g, '') + '@s.whatsapp.net';
-await client.sendMessage(jid, {text: msg});
-} catch (e) {}
-});
-
-process.on('unhandledRejection', async (reason) => {
-const erro = reason instanceof Error ? reason : new Error(reason);
-if (!deveReportarErro(erro)) {
-console.error("Erro ignorado:", erro.message);
-return;
-}
-const linha = erro.stack?.split('\n')[1]?.trim() || 'Linha não identificada';
-const msg = `⚠️ *ERRO OU BUG NO:* ${NomeDoBot}\n\n🕑 *Horario:* ${hora}\n📰 *Linha:* ${linha}\n⚙️ *Erro:* ${erro.message}`;
-try {
-const jid = setting.numerodono.replace(/[^\d]/g, '') + '@s.whatsapp.net';
-await client.sendMessage(jid, {text: msg});
-} catch (e) {}
-});
 
 global.safeSendMessage = async (jid, msg, options = {}) => {
 try {
