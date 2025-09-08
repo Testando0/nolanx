@@ -1464,7 +1464,7 @@ if (res) return safeSendMessage(from, {video: {url: res.result[0].url}, mimetype
 
 if (url.includes("facebook.com") || url.includes("fb.watch")) {
 res = await fbdown(url);
-if (res && res[0]?.url) return safeSendMessage(from, {video: {url: res[0].url}, mimetype: "video/mp4"}, {quoted: non});
+if (res.Normal_video) return safeSendMessage(from, {video: {url: res.Normal_video}, mimetype: "video/mp4"}, {quoted: non});
 }
 
 if (url.includes("youtube.com") || url.includes("youtu.be")) {
@@ -6168,7 +6168,7 @@ try {
 if(!q.includes("facebook") && !q.includes("fb.watch")) return enviar(`🔹 Uso correto: ${prefix + command} link`);
 reagir(from, '✅')
 let wsc = await fbdown(q);
-safeSendMessage(from, {video: {url: wsc[0].url}, mimetype: "video/mp4"}).catch(e => {
+safeSendMessage(from, {video: {url: wsc.Normal_video}, mimetype: "video/mp4"}).catch(e => {
 return enviar("Erro..")
 })
 } catch (e) {
